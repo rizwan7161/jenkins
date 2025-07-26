@@ -4,11 +4,6 @@ networks:
   greenx-network:
     driver: bridge
 
-volumes:
-  backend-data:
-  frontend-data:
-  dbdata:
-
 services:
   db:
     image: mysql:8
@@ -18,7 +13,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - dbdata:/var/lib/mysql
+      - ./data/db:/var/lib/mysql
     networks:
       - greenx-network
 
@@ -27,18 +22,14 @@ services:
     ports:
       - "8000:8000"
     volumes:
-
-      - backend-data:/app/data
+      - ./data/backend:/app
     working_dir: /app
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-
     env_file:
       - ./backend/.env
-
     environment:
       DATABASE_URL: ${DB_URL}
       PYTHONPATH: /app
-
     depends_on:
       - db
     networks:
@@ -49,6 +40,6 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - frontend-data:/app/node_modules
+      - ./frontend:/app
     networks:
       - greenx-network
