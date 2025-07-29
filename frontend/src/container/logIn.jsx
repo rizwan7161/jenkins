@@ -90,7 +90,7 @@ const LogIn = () => {
         <Container>
           <Logo src={logo} alt="Logo" />
           <WelcomeText>
-            Welcome to Sustainability <br /> Priority Assessment Tool
+            This is the change which rizwan has updated while building a perfect pipeline <br /> Priority Assessment Tool
           </WelcomeText>
           <Row justify={"center"}>
             <Col xs={24} lg={11}>
